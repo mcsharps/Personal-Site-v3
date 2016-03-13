@@ -2,6 +2,8 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
 var app = express();
+var Twitter = require('twitter-node-client').Twitter;
+var https = require('https');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -31,7 +33,7 @@ app.get('/db', function (request, response) {
        { response.render('pages/db', {results: result.rows} ); }
     });
   });
-})
+});
 
 app.get('/cool', function(request, response){
 response.send(cool());
@@ -40,5 +42,32 @@ response.send(cool());
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+app.get('/twitter', function(request, response){
+	//https call to oauth2 token request
+	//log response and check
 
 
+	var options = {
+	  hostname: 'api.twitter.com',
+	  port: 443,
+	  path: '/oauth2/token',
+	  method: 'POST',
+	  headers: 'OAuth oauth_consumer_key="LoZY48uym9VIk4tiCncSara3H", oauth_nonce="14b4d90a50a930d42634dcdf9fd2d782", oauth_signature="Cu0dv7kpCEpARH3us%2BaJR9WNxrg%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1457849580", oauth_token="23732632-ycuS2xbqiyMMxJXAU5VRno5zkLtJdofn57USN9RPG", oauth_version="1.0"',
+	  //auth: user:password,
+	  
+	};
+
+	var req = https.request(options, (res) => {
+	  console.log('statusCode: ', res.statusCode);
+	  console.log('headers: ', res.headers);
+
+	  res.on('data', (d) => {
+	    process.stdout.write(d);
+	  });
+	});
+	req.end();
+
+	req.on('error', (e) => {
+	  console.error(e);
+	});
+});
