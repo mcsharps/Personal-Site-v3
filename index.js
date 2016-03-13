@@ -54,20 +54,20 @@ app.get('/twitter', function(request, response){
 	  method: 'POST',
 	  headers: 'OAuth oauth_consumer_key="LoZY48uym9VIk4tiCncSara3H", oauth_nonce="14b4d90a50a930d42634dcdf9fd2d782", oauth_signature="Cu0dv7kpCEpARH3us%2BaJR9WNxrg%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1457849580", oauth_token="23732632-ycuS2xbqiyMMxJXAU5VRno5zkLtJdofn57USN9RPG", oauth_version="1.0"',
 	  //auth: user:password,
-	  
+
 	};
 
-	var req = https.request(options, (res) => {
+	var req = https.request(function(options, res){
 	  console.log('statusCode: ', res.statusCode);
 	  console.log('headers: ', res.headers);
 
-	  res.on('data', (d) => {
+	  res.on(function('data', d){
 	    process.stdout.write(d);
 	  });
 	});
 	req.end();
 
-	req.on('error', (e) => {
+	req.on(function('error', e){
 	  console.error(e);
 	});
 });
