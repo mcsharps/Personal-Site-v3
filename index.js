@@ -5,6 +5,23 @@ var app = express();
 var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 
+var error = function (err, response, body) {
+    console.log('ERROR [%s]', err);
+};
+var success = function (data) {
+    console.log(JSON.stringify(data, 2, 2));
+};
+
+var config = {
+       "consumerKey": "xyUPXQu2SEcOsxWlkT0Lf502z",
+       "consumerSecret": "jSX68nEnziiL6sqOlNx6RgygEWvyjpPANSZg4ocH3pfc7N7Nxv",
+       "accessToken": "23732632-UBDfIaeMkLoRVWhJFAOYWproZV1WxlQDGGAHzkWLV",
+       "accessTokenSecret": "QgDPaGbue2TcBDjmVUZ1M5U29q1hyCkim9iytGDZGbTt6",
+       "callBackUrl": "127.0.0.1:5000"
+   };
+
+var twitter = new Twitter(config);
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -42,32 +59,18 @@ response.send(cool());
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
 app.get('/twitter', function(request, response){
 	//https call to oauth2 token request
 	//log response and check
 
 
-	var options = {
-	  hostname: 'api.twitter.com',
-	  port: 443,
-	  path: '/oauth2/token',
-	  method: 'POST',
-	  headers: 'OAuth oauth_consumer_key="LoZY48uym9VIk4tiCncSara3H", oauth_nonce="14b4d90a50a930d42634dcdf9fd2d782", oauth_signature="Cu0dv7kpCEpARH3us%2BaJR9WNxrg%3D", oauth_signature_method="HMAC-SHA1", oauth_timestamp="1457849580", oauth_token="23732632-ycuS2xbqiyMMxJXAU5VRno5zkLtJdofn57USN9RPG", oauth_version="1.0"',
-	  //auth: user:password,
-
-	};
-
-	var req = https.request(function(options, res){
-	  console.log('statusCode: ', res.statusCode);
-	  console.log('headers: ', res.headers);
-
-	  res.on(function(data, d){
-	    process.stdout.write(d);
-	  });
-	});
-	req.end();
-
-	req.on(function(error, e){
-	  console.error(e);
-	});
+	twitter.getSearch({'q':'#haiku','count': 10}, 
+		function(error){
+			response.render('pages/twitter', {error: error});
+		}, 
+		function(success){
+			response.render('pages/twitter', {results: success});
+		});
+	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
