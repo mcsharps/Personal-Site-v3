@@ -61,13 +61,13 @@ app.get('/twitter', function(request, response){
 	  console.log('statusCode: ', res.statusCode);
 	  console.log('headers: ', res.headers);
 
-	  res.on(function('data', d){
+	  res.on(function(data, d){
 	    process.stdout.write(d);
 	  });
 	});
 	req.end();
 
-	req.on(function('error', e){
+	req.on(function(error, e){
 	  console.error(e);
 	});
 });
