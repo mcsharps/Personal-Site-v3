@@ -4,6 +4,8 @@ var pg = require('pg');
 var app = express();
 var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({name: "twitterAndStrava"});
 
 var error = function (err, response, body) {
     console.log('ERROR [%s]', err);
@@ -65,12 +67,13 @@ app.get('/twitter', function(request, response){
 	//log response and check
 
 
-	twitter.getSearch({'q':'#haiku','count': 10}, 
+	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10}, 
 		function(error){
 			response.render('pages/twitter', {error: error});
 		}, 
 		function(success){
 			response.render('pages/twitter', {results: success});
+			log.info(success.text);
 		});
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
