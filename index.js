@@ -5,13 +5,30 @@ var app = express();
 var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 var bunyan = require('bunyan');
-var log = bunyan.createLogger({name: "twitterAndStrava"});
+var log = bunyan.createLogger({
+  name: 'twitterAndStrava',
+  streams: [
+    {
+      level: 'info',
+      // stream: process.stdout,
+      path: './myAppInfo.log'            // log INFO and above to stdout
+    },
+    {
+      level: 'error',
+      path: './myAppErrors.log'  // log ERROR and above to a file
+    }
+  ]
+});
+var qs = require('qs');
 
 var error = function (err, response, body) {
-    console.log('ERROR [%s]', err);
+    // console.log('ERROR [%s]', err);
+    return err;
 };
 var success = function (data) {
-    console.log(JSON.stringify(data, 2, 2));
+    // console.log(JSON.stringify(data, null, 2));
+    console.log(typeof data);
+    console.log(data.statuses);
 };
 
 var config = {
@@ -63,17 +80,19 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/twitter', function(request, response){
-	//https call to oauth2 token request
-	//log response and check
-
+//super agent
+//https://github.com/mzabriskie/axios
+//https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
 
 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10}, 
 		function(error){
-			response.render('pages/twitter', {error: error});
-		}, 
-		function(success){
-			response.render('pages/twitter', {results: success});
-			log.info(success.text);
-		});
+			var errObj = JSON.parse(error);
+	},  function(success){
+			var successObj = JSON.parse(success);
+			log.info(successObj.statuses[0].text);
+			// var statusesAsTexts = .map or something like that
+			// response.render('pages/twitter', {results: statusesAsTexts});
+			// need to map all statuses array text to values and log'em out for now; render when I get the map working
+	});
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
