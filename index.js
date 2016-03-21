@@ -84,14 +84,17 @@ app.get('/twitter', function(request, response){
 //https://github.com/mzabriskie/axios
 //https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
 
-	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10}, 
+	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
 		function(error){
 			var errObj = JSON.parse(error);
 	},  function(success){
 			var successObj = JSON.parse(success);
 			log.info(successObj.statuses[0].text);
-			// var statusesAsTexts = .map or something like that
-			// response.render('pages/twitter', {results: statusesAsTexts});
+			var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
+				log.info(currentStatus.text);
+				// var Status[index] = currentStatus.text;
+			});
+			response.render('pages/twitter', {results: successObj.statuses});
 			// need to map all statuses array text to values and log'em out for now; render when I get the map working
 	});
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
