@@ -5,6 +5,7 @@ var app = express();
 var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 var bunyan = require('bunyan');
+var strava = require('strava-v3');
 var log = bunyan.createLogger({
   name: 'twitterAndStrava',
   streams: [
@@ -82,7 +83,6 @@ app.listen(app.get('port'), function() {
 app.get('/twitter', function(request, response){
 //super agent
 //https://github.com/mzabriskie/axios
-//https://api.twitter.com/1.1/search/tweets.json?q=%23freebandnames&since_id=24012619984051000&max_id=250126199840518145&result_type=mixed&count=4
 
 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
 		function(error){
@@ -98,4 +98,46 @@ app.get('/twitter', function(request, response){
 			// need to map all statuses array text to values and log'em out for now; render when I get the map working
 	});
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
+});
+app.get('/strava', function(request, response){
+	// curl -G https://www.strava.com/api/v3/athletes/7224264/stats
+    // -H "Authorization: Bearer 6ccca95c48476b45f56caf70592c9621f1b43d94 "
+	//dope info
+	// var https = require('https');
+
+	// var options = {
+	//   hostname: 'www.strava.com',
+	//   port: 443,
+	//   path: '/api/v3/athletes/7224264/stats',
+	//   headers: {Authorization: 'Bearer 6ccca95c48476b45f56caf70592c9621f1b43d94'},
+	//   method: 'GET'
+	// };
+
+	// var req = https.request(options, function(res) {
+	//   console.log('statusCode: ', res.statusCode);
+	//   console.log('headers: ', res.headers);
+	//   res.setEncoding('utf8')
+	//   res.on('data', function(d) {
+	//     process.stdout.write(d);
+	//     log.info(d);
+	//     log.info(JSON.parse(d));
+	//     response.render('pages/twitter', {results: d});
+	//   });
+	// });
+	// req.end();
+
+	// req.on('error', function(e){
+	//   console.error(e);
+	// });
+
+	strava.athletes.stats({id:'7224264'},function(err, payload){
+		if(err){
+			log.info(err);
+		}
+		log.info(payload);
+		log.info(payload.recent_ride_totals.count);
+		log.info(payload.recent_ride_totals.distance);
+		log.info(payload.recent_ride_totals.elevation_gain);
+		response.render('pages/strava', {results: payload});
+	});
 });
