@@ -32,15 +32,7 @@ var success = function (data) {
     console.log(data.statuses);
 };
 
-var config = {
-       "consumerKey": "xyUPXQu2SEcOsxWlkT0Lf502z",
-       "consumerSecret": "jSX68nEnziiL6sqOlNx6RgygEWvyjpPANSZg4ocH3pfc7N7Nxv",
-       "accessToken": "23732632-UBDfIaeMkLoRVWhJFAOYWproZV1WxlQDGGAHzkWLV",
-       "accessTokenSecret": "QgDPaGbue2TcBDjmVUZ1M5U29q1hyCkim9iytGDZGbTt6",
-       "callBackUrl": "127.0.0.1:5000"
-   };
-
-var twitter = new Twitter(config);
+var twitter = new Twitter();
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -81,9 +73,6 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/twitter', function(request, response){
-//super agent
-//https://github.com/mzabriskie/axios
-
 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
 		function(error){
 			var errObj = JSON.parse(error);
@@ -100,35 +89,6 @@ app.get('/twitter', function(request, response){
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
 app.get('/strava', function(request, response){
-	// curl -G https://www.strava.com/api/v3/athletes/7224264/stats
-    // -H "Authorization: Bearer 6ccca95c48476b45f56caf70592c9621f1b43d94 "
-	//dope info
-	// var https = require('https');
-
-	// var options = {
-	//   hostname: 'www.strava.com',
-	//   port: 443,
-	//   path: '/api/v3/athletes/7224264/stats',
-	//   headers: {Authorization: 'Bearer 6ccca95c48476b45f56caf70592c9621f1b43d94'},
-	//   method: 'GET'
-	// };
-
-	// var req = https.request(options, function(res) {
-	//   console.log('statusCode: ', res.statusCode);
-	//   console.log('headers: ', res.headers);
-	//   res.setEncoding('utf8')
-	//   res.on('data', function(d) {
-	//     process.stdout.write(d);
-	//     log.info(d);
-	//     log.info(JSON.parse(d));
-	//     response.render('pages/twitter', {results: d});
-	//   });
-	// });
-	// req.end();
-
-	// req.on('error', function(e){
-	//   console.error(e);
-	// });
 
 	strava.athletes.stats({id:'7224264'},function(err, payload){
 		if(err){
