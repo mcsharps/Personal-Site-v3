@@ -2,8 +2,8 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 
-import AppComponent from './components/app';
-import IndexComponent from './components/index';
+import AppComponent from '../components/app';
+import IndexComponent from '../components/index';
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
@@ -65,15 +65,18 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
 app.get('*', function(request, response) {
     // routes is our object of React routes defined above
-     match({ routes, location: req.url }, (err, redirectLocation, props) => {
+     match({ routes, location: request.url }, (err, redirectLocation, props) => {
        if (err) {
          // something went badly wrong, so 500 with a message
-         res.status(500).send(err.message);
+         response.status(500).send(err.message);
        } else if (redirectLocation) {
          // we matched a ReactRouter redirect, so redirect from the server
-         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+         response.redirect(302, redirectLocation.pathname + redirectLocation.search);
        } else if (props) {
          // if we got props, that means we found a valid component to render
          // for the given route
@@ -109,9 +112,6 @@ app.get('/db', function (request, response) {
 // response.send(cool());
 // });
 
-// app.listen(app.get('port'), function() {
-//   console.log('Node app is running on port', app.get('port'));
-// });
 
 // app.get('/twitter', function(request, response){
 // 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 

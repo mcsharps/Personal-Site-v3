@@ -17,6 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-watch": "^4.3.5",
     "pg": "4.x",
     "qs": "^6.1.0",
     "react": "^0.14.8",
