@@ -1,3 +1,9 @@
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match, RoutingContext } from 'react-router';
+
+import AppComponent from './components/app';
+import IndexComponent from './components/index';
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
@@ -34,6 +40,23 @@ var success = function (data) {
 
 var twitter = new Twitter();
 
+//---React Routes ----\\
+
+const routes = {
+    path: '',
+    component: AppComponent,
+    childRoutes: [
+        {
+            path: '/',
+            component: IndexComponent
+        }
+    ]
+}
+
+//---------------------\\
+
+
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -42,13 +65,31 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
- response.render('pages/index');
-//  var result = '';
-//  var times = process.env.TIMES || 5;
-//  for (var i=0; i < times; i++)
-//	result += cool();
-//  response.send(result);
+app.get('*', function(request, response) {
+    // routes is our object of React routes defined above
+     match({ routes, location: req.url }, (err, redirectLocation, props) => {
+       if (err) {
+         // something went badly wrong, so 500 with a message
+         res.status(500).send(err.message);
+       } else if (redirectLocation) {
+         // we matched a ReactRouter redirect, so redirect from the server
+         res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+       } else if (props) {
+         // if we got props, that means we found a valid component to render
+         // for the given route
+         const routeContext = '<RoutingContext {...props} />';
+         const markup = renderToString(routeContext);
+
+         // render `index.ejs`, but pass in the markup we want it to display
+         res.render('index', { markup })
+
+       } else {
+         // no route match, so 404. In a real app you might render a custom
+         // 404 view here
+         res.sendStatus(404);
+       }
+     });
+
 
 });
 
@@ -64,40 +105,40 @@ app.get('/db', function (request, response) {
   });
 });
 
-app.get('/cool', function(request, response){
-response.send(cool());
-});
+// app.get('/cool', function(request, response){
+// response.send(cool());
+// });
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+// app.listen(app.get('port'), function() {
+//   console.log('Node app is running on port', app.get('port'));
+// });
 
-app.get('/twitter', function(request, response){
-	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
-		function(error){
-			var errObj = JSON.parse(error);
-	},  function(success){
-			var successObj = JSON.parse(success);
-			log.info(successObj.statuses[0].text);
-			var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
-				log.info(currentStatus.text);
-				// var Status[index] = currentStatus.text;
-			});
-			response.render('pages/twitter', {results: successObj.statuses});
-			// need to map all statuses array text to values and log'em out for now; render when I get the map working
-	});
-	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
-});
-app.get('/strava', function(request, response){
+// app.get('/twitter', function(request, response){
+// 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
+// 		function(error){
+// 			var errObj = JSON.parse(error);
+// 	},  function(success){
+// 			var successObj = JSON.parse(success);
+// 			log.info(successObj.statuses[0].text);
+// 			var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
+// 				log.info(currentStatus.text);
+// 				// var Status[index] = currentStatus.text;
+// 			});
+// 			response.render('pages/twitter', {results: successObj.statuses});
+// 			// need to map all statuses array text to values and log'em out for now; render when I get the map working
+// 	});
+// 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
+// });
+// app.get('/strava', function(request, response){
 
-	strava.athletes.stats({id:'7224264'},function(err, payload){
-		if(err){
-			log.info(err);
-		}
-		log.info(payload);
-		log.info(payload.recent_ride_totals.count);
-		log.info(payload.recent_ride_totals.distance);
-		log.info(payload.recent_ride_totals.elevation_gain);
-		response.render('pages/strava', {results: payload});
-	});
-});
+// 	strava.athletes.stats({id:'7224264'},function(err, payload){
+// 		if(err){
+// 			log.info(err);
+// 		}
+// 		log.info(payload);
+// 		log.info(payload.recent_ride_totals.count);
+// 		log.info(payload.recent_ride_totals.distance);
+// 		log.info(payload.recent_ride_totals.elevation_gain);
+// 		response.render('pages/strava', {results: payload});
+// 	});
+// });
