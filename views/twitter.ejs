@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+<% include ../partials/nav.ejs %>
+
+<div class="container">
+<h2>Twitter Results for #feelthebern within 100 miles of Birmingham</h2>
+
+<ul>
+    <% results.forEach(function(r) { %>
+        <li><%= r.text %></li>
+    <% }); %>
+</ul>
+</div>
+
+</body>
+</html>

@@ -1,9 +1,3 @@
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RoutingContext } from 'react-router';
-
-import AppComponent from '../components/app';
-import IndexComponent from '../components/index';
 var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
@@ -12,6 +6,11 @@ var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 var bunyan = require('bunyan');
 var strava = require('strava-v3');
+var babel = require("babel-register")({
+  // This will override `node_modules` ignoring - you can alternatively pass
+  // an array of strings to be explicitly matched or a regex / glob
+  ignore: false
+});
 var log = bunyan.createLogger({
   name: 'twitterAndStrava',
   streams: [
@@ -27,6 +26,13 @@ var log = bunyan.createLogger({
   ]
 });
 var qs = require('qs');
+
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+
+import AppComponent from './components/app';
+import IndexComponent from './components/index';
 
 var error = function (err, response, body) {
     // console.log('ERROR [%s]', err);
@@ -80,16 +86,16 @@ app.get('*', function(request, response) {
        } else if (props) {
          // if we got props, that means we found a valid component to render
          // for the given route
-         const routeContext = '<RoutingContext {...props} />';
-         const markup = renderToString(routeContext);
+
+         const markup = renderToString(<RouterContext {...props} />);
 
          // render `index.ejs`, but pass in the markup we want it to display
-         res.render('index', { markup })
+         response.render('index', { markup })
 
        } else {
          // no route match, so 404. In a real app you might render a custom
          // 404 view here
-         res.sendStatus(404);
+         response.sendStatus(404);
        }
      });
 
