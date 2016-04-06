@@ -31,8 +31,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
-import AppComponent from './components/app';
-import IndexComponent from './components/index';
+import { routes } from './routes';
 
 var error = function (err, response, body) {
     // console.log('ERROR [%s]', err);
@@ -46,20 +45,6 @@ var success = function (data) {
 
 var twitter = new Twitter();
 
-//---React Routes ----\\
-
-const routes = {
-    path: '',
-    component: AppComponent,
-    childRoutes: [
-        {
-            path: '/',
-            component: IndexComponent
-        }
-    ]
-}
-
-//---------------------\\
 
 
 
