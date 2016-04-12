@@ -9,6 +9,8 @@ export default class AppComponent extends React.Component {
         <ul>
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/about'>About</Link></li>
+          <li><Link to='/twitter'>Twitter</Link></li>
+          <li><Link to='/strava'>Strava</Link></li>
         </ul>
         { this.props.children }
       </div>

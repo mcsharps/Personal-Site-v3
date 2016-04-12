@@ -48,7 +48,7 @@ var twitter = new Twitter();
 
 
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (5000 || process.env.PORT));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -59,7 +59,7 @@ app.set('view engine', 'ejs');
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-app.get('*', function(request, response) {
+app.get('/', function(request, response) {
     // routes is our object of React routes defined above
      match({ routes, location: request.url }, (err, redirectLocation, props) => {
        if (err) {
@@ -103,9 +103,49 @@ app.get('/db', function (request, response) {
 // response.send(cool());
 // });
 
+app.get('/twitter', (request, response) => {
+  // routes is our object of React routes defined above
+  match({ routes, location: request.url }, (err, redirectLocation, props) => {
+    if (err) {
+      // something went badly wrong, so 500 with a message
+      response.status(500).send(err.message);
+      log.info(err);
+    } else if (redirectLocation) {
+      // we matched a ReactRouter redirect, so redirect from the server
+      response.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    } else if (props) {
+      // if we got props, that means we found a valid component to render
+      // for the given route
+      twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'},
+          function(error){
+              log.info(error);
+              var errObj = JSON.parse(error);
+      },  function(success){
+        log.info(success);
+              var successObj = JSON.parse(success);
+              log.info(successObj);
+              var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
+                  log.info(currentStatus.text);
+                  // var Status[index] = currentStatus.text;
+              });
+              response.render('twitter', {results: successObj.statuses});
+              // need to map all statuses array text to values and log'em out for now; render when I get the map working
+      });
+              // const markups = renderToString(<RouterContext {...props} />);
+              // response.render('twitter', {  })
+      // render `index.ejs`, but pass in the markup we want it to display
+      // response.render('twitter', {results: successObj.statuses })
 
+    } else {
+      // no route match, so 404. In a real app you might render a custom
+      // 404 view here
+      log.info(err);
+      response.sendStatus(404);
+    }
+  });
+});
 // app.get('/twitter', function(request, response){
-// 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'}, 
+// 	twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,100mi','count': 10, 'result_type': 'recent'},
 // 		function(error){
 // 			var errObj = JSON.parse(error);
 // 	},  function(success){
@@ -120,16 +160,33 @@ app.get('/db', function (request, response) {
 // 	});
 // 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 // });
-// app.get('/strava', function(request, response){
+app.get('/strava', (request, response) => {
+    match({ routes, location: request.url }, (err, redirectLocation, props) => {
+      if (err) {
+        // something went badly wrong, so 500 with a message
+        response.status(500).send(err.message);
+      } else if (redirectLocation) {
+        // we matched a ReactRouter redirect, so redirect from the server
+        response.redirect(302, redirectLocation.pathname + redirectLocation.search);
+      } else if (props) {
+        // if we got props, that means we found a valid component to render
+        // for the given route
 
-// 	strava.athletes.stats({id:'7224264'},function(err, payload){
-// 		if(err){
-// 			log.info(err);
-// 		}
-// 		log.info(payload);
-// 		log.info(payload.recent_ride_totals.count);
-// 		log.info(payload.recent_ride_totals.distance);
-// 		log.info(payload.recent_ride_totals.elevation_gain);
-// 		response.render('pages/strava', {results: payload});
-// 	});
-// });
+	strava.athletes.stats({id:'7224264'},function(err, payload){
+		if(err){
+			log.info(err);
+		}
+		log.info(payload);
+		log.info(payload.recent_ride_totals.count);
+		log.info(payload.recent_ride_totals.distance);
+		log.info(payload.recent_ride_totals.elevation_gain);
+		response.render('strava', {results: payload});
+	});
+
+      } else {
+        // no route match, so 404. In a real app you might render a custom
+        // 404 view here
+        response.sendStatus(404);
+      }
+    })
+});
