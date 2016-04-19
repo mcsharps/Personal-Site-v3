@@ -5,3 +5,4 @@ docker-compose.yml
 myAppErrors.log
 myAppInfo.log
 data/**
+public/**
