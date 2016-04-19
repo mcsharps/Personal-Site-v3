@@ -25043,6 +25043,14 @@
 
 	var _about2 = _interopRequireDefault(_about);
 
+	var _twitter = __webpack_require__(220);
+
+	var _twitter2 = _interopRequireDefault(_twitter);
+
+	var _strava = __webpack_require__(221);
+
+	var _strava2 = _interopRequireDefault(_strava);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var routes = {
@@ -25054,6 +25062,12 @@
 	  }, {
 	    path: '/about',
 	    component: _about2.default
+	  }, {
+	    path: '/twitter',
+	    component: _twitter2.default
+	  }, {
+	    path: '/strava',
+	    component: _strava2.default
 	  }]
 	};
 
@@ -25112,8 +25126,8 @@
 	            'li',
 	            null,
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/' },
+	              'a',
+	              { href: '/' },
 	              'Home'
 	            )
 	          ),
@@ -25121,9 +25135,27 @@
 	            'li',
 	            null,
 	            _react2.default.createElement(
-	              _reactRouter.Link,
-	              { to: '/about' },
+	              'a',
+	              { href: '/about' },
 	              'About'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/twitter' },
+	              'Twitter'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            null,
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/strava' },
+	              'Strava'
 	            )
 	          )
 	        ),
@@ -25242,6 +25274,114 @@
 	}(_react2.default.Component);
 
 	exports.default = AboutComponent;
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TwitterComponent = function (_React$Component) {
+	  _inherits(TwitterComponent, _React$Component);
+
+	  function TwitterComponent() {
+	    _classCallCheck(this, TwitterComponent);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TwitterComponent).apply(this, arguments));
+	  }
+
+	  _createClass(TwitterComponent, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'This is the twitter page'
+	        ),
+	        _react2.default.createElement('div', null)
+	      );
+	    }
+	  }]);
+
+	  return TwitterComponent;
+	}(_react2.default.Component);
+
+	exports.default = TwitterComponent;
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var StravaComponent = function (_React$Component) {
+	  _inherits(StravaComponent, _React$Component);
+
+	  function StravaComponent() {
+	    _classCallCheck(this, StravaComponent);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(StravaComponent).apply(this, arguments));
+	  }
+
+	  _createClass(StravaComponent, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'This is the strava page'
+	        ),
+	        _react2.default.createElement('div', null)
+	      );
+	    }
+	  }]);
+
+	  return StravaComponent;
+	}(_react2.default.Component);
+
+	exports.default = StravaComponent;
 
 /***/ }
 /******/ ]);

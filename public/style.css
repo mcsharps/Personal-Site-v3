@@ -1,0 +1,23 @@
+body {
+    background: white;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    // width: 4000px;
+    width: calc(99.99% * 1/12 - (30px - 30px * 1/12));
+}
+body:nth-child(1n) {
+    float: left;
+    margin-right: 30px;
+    clear: none;
+}
+body:last-child {
+    margin-right: 0;
+}
+body:nth-child(12n) {
+    margin-right: 0;
+    float: right;
+}
+body:nth-child(12n + 1) {
+    clear: left;
+}
