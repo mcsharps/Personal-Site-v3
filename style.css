@@ -1,0 +1,14 @@
+:root{
+    --check-var: 4000px;
+    --font-family-headers: 'Crimson Text', serif;
+    --font-family-body: 'Cantarell', serif;
+}
+body {
+    background: white;
+    font-family: var(--font-family-body);
+    // width: var(--check-var);
+    // lost-column: 1/12;
+}
+h2{
+    font-family: var(--font-family-headers);
+}

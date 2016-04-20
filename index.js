@@ -72,7 +72,7 @@ app.get('/', function(request, response) {
          // if we got props, that means we found a valid component to render
          // for the given route
 
-         const markup = renderToString(<RouterContext {...props} />);
+         const markup = renderToString(<RouterContext {...props} />); //
 
          // render `index.ejs`, but pass in the markup we want it to display
          response.render('index', { markup })
@@ -99,7 +99,7 @@ app.get('/about', function(request, response) {
          // if we got props, that means we found a valid component to render
          // for the given route
 
-         const markup = renderToString(<RouterContext {...props} />);
+         const markup = renderToString(<RouterContext {...props} />); //
 
          // render `index.ejs`, but pass in the markup we want it to display
          response.render('index', { markup })
@@ -120,7 +120,7 @@ app.get('/db', function (request, response) {
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.render('pages/db', {results: result.rows} ); }
+       { response.render('db', {results: result.rows} ); }
     });
   });
 });

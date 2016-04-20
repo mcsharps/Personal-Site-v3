@@ -6,6 +6,7 @@ var bunyan = require('bunyan');
 var postcss = require('gulp-postcss');
 var cssvariables = require('postcss-css-variables');
 var autoprefixer = require('autoprefixer');
+var watch = require('gulp-watch');
 var lost = require('lost');
 var log = bunyan.createLogger({
   name: 'twitterAndStrava',
