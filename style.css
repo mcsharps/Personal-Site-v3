@@ -4,16 +4,40 @@
     --font-family-body: 'Cantarell', serif;
 }
 body {
-    background: #1F1F1F;
+    background: #EFEFEF;
     font-family: var(--font-family-body);
     // width: var(--check-var);
     // lost-column: 1/12;
 }
-.container{
-    background: white;
-    margin-left: 25%;
-    lost-column: 6/12;
+a{
+    color: purple;
 }
 h2{
     font-family: var(--font-family-headers);
+}
+
+//Large Desktop
+@media (min-width: 1170px) {
+}
+
+//Medium Desktop
+@media (min-width: 970px) {
+
+}
+
+//Tablets
+@media (min-width: 768px) {
+
+    .container{
+        background-color: white;
+        margin: 0 auto;
+        padding: 20px;
+        width: 700px;
+    }
+
+}
+
+//Small Devices
+@media (max-width: 768px) {
+
 }
