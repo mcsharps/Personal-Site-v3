@@ -6,8 +6,7 @@
 body {
     background: #EFEFEF;
     font-family: var(--font-family-body);
-    // width: var(--check-var);
-    // lost-column: 1/12;
+    /*margin: 0;*/
 }
 a{
     color: purple;
@@ -16,28 +15,43 @@ h2{
     font-family: var(--font-family-headers);
 }
 
-//Large Desktop
+/* Large Desktop */
 @media (min-width: 1170px) {
-}
-
-//Medium Desktop
-@media (min-width: 970px) {
-
-}
-
-//Tablets
-@media (min-width: 768px) {
-
     .container{
         background-color: white;
-        margin: 0 auto;
         padding: 20px;
-        width: 700px;
+        lost-center: 700px;
     }
 
 }
 
-//Small Devices
-@media (max-width: 768px) {
+/* Medium Desktop */
+@media (min-width: 970px) and (max-width: 1169px) {
 
+    .container{
+        background-color: white;
+        padding: 20px;
+        lost-center: 600px;
+    }
+
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 969px) {
+
+    .container{
+        background-color: white;
+        padding: 20px;
+        lost-center: 500px;
+    }
+
+}
+
+/* Small Devices */
+@media (max-width: 768px) {
+    .container{
+        background-color: white;
+        padding: 20px;
+        lost-center: 400px;
+    }
 }
