@@ -9,10 +9,41 @@ body {
     /*margin: 0;*/
 }
 a{
-    color: purple;
+    color: #559EFF;
+    text-decoration: none;
+}
+a:hover{
+    color: #167AFF;
+}
+a:active{
+    color: #0058CC;
+    text-decoration: underline;
+}
+h1{
+    font-family: var(--font-family-headers);
 }
 h2{
     font-family: var(--font-family-headers);
+}
+h3{
+    font-family: var(--font-family-headers);
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+.headerLink{
+    color: black;
+    text-decoration: none;
+}
+.myFace{
+    background-image: url("./images/me1Crop.jpg");
+    width: 235px;
+    height:235px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 auto;
 }
 
 /* Large Desktop */
@@ -24,6 +55,7 @@ h2{
     }
 
 }
+
 
 /* Medium Desktop */
 @media (min-width: 970px) and (max-width: 1169px) {

@@ -5,7 +5,8 @@ export default class AppComponent extends React.Component {
   render() {
     return (
       <div>
-        <h2>Hi! I'm Madison Sharps</h2>
+        <h1><a href='/' className='headerLink'>Madison Sharps</a></h1>
+        <div className="myFace"></div>
         <ul>
           <li><a href='/'>Home</a></li>
           <li><a href='/about'>About</a></li>

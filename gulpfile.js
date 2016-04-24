@@ -61,5 +61,9 @@ gulp.task('postcss', function(){
            .pipe(postcss(processers))
            .pipe( gulp.dest('public/') );
 });
+gulp.task('copyImages', function(){
+    gulp.src('./images/**')
+    .pipe(gulp.dest('public/images'));
 
-gulp.task('default', ['webpack', 'postcss']);
+});
+gulp.task('default', ['webpack', 'postcss', 'copyImages']);
