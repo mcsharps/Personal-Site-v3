@@ -6,6 +6,8 @@ var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 var bunyan = require('bunyan');
 var strava = require('strava-v3');
+var Forecast = require('forecast.io');
+var moment = require('moment');
 var babel = require("babel-register")({
   // This will override `node_modules` ignoring - you can alternatively pass
   // an array of strings to be explicitly matched or a regex / glob
@@ -26,6 +28,12 @@ var log = bunyan.createLogger({
   ]
 });
 var qs = require('qs');
+
+var options = {
+  APIKey: process.env.FORECAST_API_KEY,
+  timeout: 1000
+};
+var forecast = new Forecast();
 
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -86,7 +94,7 @@ app.get('/', function(request, response) {
 
 
 });
-app.get('/about', function(request, response) {
+app.get('/resume', function(request, response) {
     // routes is our object of React routes defined above
      match({ routes, location: request.url }, (err, redirectLocation, props) => {
        if (err) {
@@ -159,7 +167,7 @@ app.get('/twitter', (request, response) => {
     });
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
-app.get('/strava', (request, response) => {
+app.get('/biking', (request, response) => {
     match({ routes, location: request.url }, (err, redirectLocation, props) => {
       if (err) {
         // something went badly wrong, so 500 with a message
@@ -175,12 +183,21 @@ app.get('/strava', (request, response) => {
 		if(err){
 			log.info(err);
 		}
-		log.info(payload);
-		log.info(payload.recent_ride_totals.count);
-		log.info(payload.recent_ride_totals.distance);
-		log.info(payload.recent_ride_totals.elevation_gain);
-        const markup = renderToString(<RouterContext {...props} />); //
-		response.render('strava', {results: payload, markup: markup});
+        var time = moment.unix();
+        var latitude = 33.508385;
+        var longitude = -86.783255;
+            forecast.get(latitude, longitude, function (err, res, data) {
+              if (err){
+                log.info(err);
+                throw err
+              };
+
+              log.info(data.hourly.data);
+              // log.info(res.hourly);
+              // log.info(data.hourly);
+            const markup = renderToString(<RouterContext {...props} />); //
+    		response.render('biking', {results: payload, forecast: data.hourly.data, markup: markup});
+            });
 	});
 
       } else {

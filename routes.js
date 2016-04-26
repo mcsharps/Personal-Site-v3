@@ -1,18 +1,18 @@
 import AppComponent from './components/app';
-import IndexComponent from './components/index';
-import AboutComponent from './components/about';
+import HomeComponent from './components/home';
+import AboutComponent from './components/resume';
 import TwitterComponent from './components/twitter';
-import StravaComponent from './components/strava';
+import StravaComponent from './components/biking';
 const routes = {
   path: '',
   component: AppComponent,
   childRoutes: [
     {
       path: '/',
-      component: IndexComponent
+      component: HomeComponent
     },
     {
-      path: '/about',
+      path: '/resume',
       component: AboutComponent
     },
     {
@@ -20,7 +20,7 @@ const routes = {
       component: TwitterComponent
     },
     {
-      path: '/strava',
+      path: '/biking',
       component: StravaComponent
     }
   ]

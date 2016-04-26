@@ -1,0 +1,34 @@
+<% include ./header.ejs %>
+<div id="app"><%- markup %></div>
+
+<div class="strava-container">
+
+<ul>
+<li>
+	Number of Recent Rides:
+	<%= results.recent_ride_totals.count %>
+</li>
+<li>
+	Distance of Recent Rides:
+	<%= results.recent_ride_totals.distance %> Meters
+</li>
+<li>
+	Elevation Gain of Recent Rides:
+	<%= results.recent_ride_totals.elevation_gain %> Meters
+</li>
+
+</ul>
+
+</div>
+
+<div class="forecast-container">
+<h2> How is the Weather? </h2>
+<ul>
+<% forecast.forEach(function(r) { %>
+    <li> At <%= r.time %> </li>
+    <li> the probability of Rain is <%= r.precipProbability %> </li>
+    <li> with a temp of <%= r.temperature %> </li>
+<% }); %>
+</ul>
+</div>
+<% include ./footer.ejs %>

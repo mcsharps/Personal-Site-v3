@@ -4,7 +4,7 @@ export default class StravaComponent extends React.Component {
   render() {
     return (
       <div>
-        <p>This is the strava page</p>
+        <h2>My Current Strava Statistics:</h2>
         <div>
         </div>
       </div>

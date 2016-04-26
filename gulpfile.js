@@ -46,7 +46,7 @@ gulp.task('webpack', function() {
         }
         else {
             console.log(stats.toString());
-            log.info(stats.toString());
+            // log.info(stats.toString());
         }
 
     });

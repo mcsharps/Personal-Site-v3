@@ -4,7 +4,8 @@ export default class IndexComponent extends React.Component {
   render() {
     return (
       <div>
-        <h3>Hi! Welcome to my site</h3>
+        <h2>About Me</h2>
+        <p>I am a Front End Developer with a passion for biking, coffee, and programming.</p>
       </div>
     );
   }
