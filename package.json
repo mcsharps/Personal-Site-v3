@@ -24,6 +24,7 @@
     "gulp-watch": "^4.3.5",
     "lost": "^6.7.2",
     "moment": "^2.13.0",
+    "moment-timezone": "^0.5.3",
     "pg": "4.x",
     "postcss-css-variables": "^0.5.1",
     "qs": "^6.1.0",

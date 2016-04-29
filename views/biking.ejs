@@ -10,11 +10,11 @@
 </li>
 <li>
 	Distance of Recent Rides:
-	<%= results.recent_ride_totals.distance %> Meters
+	<%= results.recent_ride_totals.distance %> Miles
 </li>
 <li>
 	Elevation Gain of Recent Rides:
-	<%= results.recent_ride_totals.elevation_gain %> Meters
+	<%= results.recent_ride_totals.elevation_gain %> Feet
 </li>
 
 </ul>
@@ -26,8 +26,9 @@
 <ul>
 <% forecast.forEach(function(r) { %>
     <li> At <%= r.time %> </li>
-    <li> the probability of Rain is <%= r.precipProbability %> </li>
-    <li> with a temp of <%= r.temperature %> </li>
+    <li> the probability of Rain is <%= r.precipProbability %>% </li>
+    <li> with a temperature of <%= r.temperature %>° Fahrenheit </li>
+    <br/>
 <% }); %>
 </ul>
 </div>

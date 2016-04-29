@@ -7,7 +7,7 @@ var https = require('https');
 var bunyan = require('bunyan');
 var strava = require('strava-v3');
 var Forecast = require('forecast.io');
-var moment = require('moment');
+var moment = require('moment-timezone');
 var babel = require("babel-register")({
   // This will override `node_modules` ignoring - you can alternatively pass
   // an array of strings to be explicitly matched or a regex / glob
@@ -16,15 +16,15 @@ var babel = require("babel-register")({
 var log = bunyan.createLogger({
   name: 'twitterAndStrava',
   streams: [
-    {
+  {
       level: 'info',
       // stream: process.stdout,
       path: './myAppInfo.log'            // log INFO and above to stdout
-    },
-    {
+  },
+  {
       level: 'error',
       path: './myAppErrors.log'  // log ERROR and above to a file
-    }
+  }
   ]
 });
 var qs = require('qs');
@@ -69,14 +69,14 @@ app.listen(app.get('port'), function() {
 });
 app.get('/', function(request, response) {
     // routes is our object of React routes defined above
-     match({ routes, location: request.url }, (err, redirectLocation, props) => {
-       if (err) {
+    match({ routes, location: request.url }, (err, redirectLocation, props) => {
+     if (err) {
          // something went badly wrong, so 500 with a message
          response.status(500).send(err.message);
-       } else if (redirectLocation) {
+     } else if (redirectLocation) {
          // we matched a ReactRouter redirect, so redirect from the server
          response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-       } else if (props) {
+     } else if (props) {
          // if we got props, that means we found a valid component to render
          // for the given route
 
@@ -85,25 +85,25 @@ app.get('/', function(request, response) {
          // render `index.ejs`, but pass in the markup we want it to display
          response.render('index', { markup })
 
-       } else {
+     } else {
          // no route match, so 404. In a real app you might render a custom
          // 404 view here
          response.sendStatus(404);
-       }
+     }
+ });
+
+
      });
-
-
-});
-app.get('/resume', function(request, response) {
+    app.get('/resume', function(request, response) {
     // routes is our object of React routes defined above
-     match({ routes, location: request.url }, (err, redirectLocation, props) => {
-       if (err) {
+    match({ routes, location: request.url }, (err, redirectLocation, props) => {
+     if (err) {
          // something went badly wrong, so 500 with a message
          response.status(500).send(err.message);
-       } else if (redirectLocation) {
+     } else if (redirectLocation) {
          // we matched a ReactRouter redirect, so redirect from the server
          response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-       } else if (props) {
+     } else if (props) {
          // if we got props, that means we found a valid component to render
          // for the given route
 
@@ -112,98 +112,103 @@ app.get('/resume', function(request, response) {
          // render `index.ejs`, but pass in the markup we want it to display
          response.render('index', { markup })
 
-       } else {
+     } else {
          // no route match, so 404. In a real app you might render a custom
          // 404 view here
          response.sendStatus(404);
-       }
+     }
+ });
+
+
      });
-
-
-});
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM test_table', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('db', {results: result.rows} ); }
+    app.get('/db', function (request, response) {
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        client.query('SELECT * FROM test_table', function(err, result) {
+          done();
+          if (err)
+             { console.error(err); response.send("Error " + err); }
+         else
+             { response.render('db', {results: result.rows} ); }
+     });
     });
   });
-});
 
-app.get('/twitter', (request, response) => {
-    match({ routes, location: request.url }, (err, redirectLocation, props) => {
-      if (err) {
+    app.get('/twitter', (request, response) => {
+        match({ routes, location: request.url }, (err, redirectLocation, props) => {
+          if (err) {
         // something went badly wrong, so 500 with a message
         response.status(500).send(err.message);
-      } else if (redirectLocation) {
+    } else if (redirectLocation) {
         // we matched a ReactRouter redirect, so redirect from the server
         response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      } else if (props) {
+    } else if (props) {
         // if we got props, that means we found a valid component to render
         // for the given route
-            twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,1000mi','count': 10, 'result_type': 'both'},
-                function(error){
-                    var errObj = JSON.parse(error);
+        twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,1000mi','count': 10, 'result_type': 'both'},
+            function(error){
+                var errObj = JSON.parse(error);
             },  function(success){
-                    var successObj = JSON.parse(success);
-                    log.info(successObj.statuses[0].text);
-                    var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
-                        log.info(currentStatus.text);
+                var successObj = JSON.parse(success);
+                log.info(successObj.statuses[0].text);
+                var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
+                    log.info(currentStatus.text);
                         // var Status[index] = currentStatus.text;
                     });
-                    const markup = renderToString(<RouterContext {...props} />); //
+                const markup = renderToString(<RouterContext {...props} />); //
                     response.render('twitter', {results: successObj.statuses, markup: markup});
                     // need to map all statuses array text to values and log'em out for now; render when I get the map working
-            });
+                });
 
-      } else {
+            } else {
         // no route match, so 404. In a real app you might render a custom
         // 404 view here
         response.sendStatus(404);
-      }
-    });
+    }
+});
 	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
 });
-app.get('/biking', (request, response) => {
-    match({ routes, location: request.url }, (err, redirectLocation, props) => {
-      if (err) {
+        app.get('/biking', (request, response) => {
+            match({ routes, location: request.url }, (err, redirectLocation, props) => {
+              if (err) {
         // something went badly wrong, so 500 with a message
         response.status(500).send(err.message);
-      } else if (redirectLocation) {
+    } else if (redirectLocation) {
         // we matched a ReactRouter redirect, so redirect from the server
         response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-      } else if (props) {
+    } else if (props) {
         // if we got props, that means we found a valid component to render
         // for the given route
 
-	strava.athletes.stats({id:'7224264'},function(err, payload){
-		if(err){
-			log.info(err);
-		}
-        var time = moment.unix();
-        var latitude = 33.508385;
-        var longitude = -86.783255;
+        strava.athletes.stats({id:'7224264'},function(err, payload){
+          if(err){
+             log.info(err);
+         }
+         payload.recent_ride_totals.distance = Math.trunc(payload.recent_ride_totals.distance / 1609.344);
+         payload.recent_ride_totals.elevation_gain = Math.trunc(payload.recent_ride_totals.elevation_gain * 3.2808);
+         var latitude = 33.508385;
+         var longitude = -86.783255;
             forecast.get(latitude, longitude, function (err, res, data) {
-              if (err){
-                log.info(err);
-                throw err
-              };
-
-              log.info(data.hourly.data);
-              // log.info(res.hourly);
-              // log.info(data.hourly);
-            const markup = renderToString(<RouterContext {...props} />); //
-    		response.render('biking', {results: payload, forecast: data.hourly.data, markup: markup});
+                if (err) {
+                    log.info(err);
+                    var forecast = err;
+                }
+                else if(data) {
+                    var forecast = data.hourly.data;
+                    forecast.forEach(function(currentValue){
+                        currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do YYYY, h:mm:ss a');
+                        currentValue.precipProbability = currentValue.precipProbability * 100;
+                        log.info(currentValue.time);
+                    })
+                        // log.info(data.hourly.data);
+                        const markup = renderToString(<RouterContext {...props} />); //
+                        response.render('biking', {results: payload, forecast: forecast, markup: markup});
+                }
             });
-	});
-
-      } else {
+        });
+     } else {
         // no route match, so 404. In a real app you might render a custom
         // 404 view here
         response.sendStatus(404);
-      }
-    })
-});
+    }
+})
+    });
