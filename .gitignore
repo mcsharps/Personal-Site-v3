@@ -6,3 +6,5 @@ myAppErrors.log
 myAppInfo.log
 data/**
 public/**
+public/*.js
+public/*.css
