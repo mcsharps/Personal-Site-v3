@@ -32,6 +32,9 @@ ul{
     list-style: none;
     padding: 0;
 }
+ul > li > ul > li {
+    list-style: initial;
+}
 .headerLink{
     color: black;
     text-decoration: none;

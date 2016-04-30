@@ -196,7 +196,7 @@ app.get('/', function(request, response) {
                     var forecast = data.hourly.data;
                     forecast.forEach(function(currentValue){
                         currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do YYYY, h:mm:ss a');
-                        currentValue.precipProbability = currentValue.precipProbability * 100;
+                        currentValue.precipProbability = Math.trunc(currentValue.precipProbability * 100);
                         log.info(currentValue.time);
                     })
                         // log.info(data.hourly.data);
