@@ -52,6 +52,10 @@ ul > li > ul > li {
 
 /* Large Desktop */
 @media (min-width: 1170px) {
+    .forecastStuff{
+        lost-column: 3/12;
+        lost-offset: -1/16;
+    }
     .container{
         background-color: white;
         padding: 20px;
@@ -62,7 +66,7 @@ ul > li > ul > li {
 
 
 /* Medium Desktop */
-@media (min-width: 970px) and (max-width: 1169px) {
+@media (max-width: 1169px) and (min-width: 970px) {
 
     .container{
         background-color: white;
@@ -73,7 +77,7 @@ ul > li > ul > li {
 }
 
 /* Tablets */
-@media (min-width: 768px) and (max-width: 969px) {
+@media (max-width: 969px) and (min-width: 768px) {
 
     .container{
         background-color: white;

@@ -22,14 +22,15 @@
 </div>
 
 <div class="forecast-container">
-<h2> How is the Weather? </h2>
-<ul>
+<h2> Biking Weather?? </h2>
 <% forecast.forEach(function(r) { %>
-    <li> At <%= r.time %> </li>
-    <li> the probability of Rain is <%= r.precipProbability %>% </li>
-    <li> with a temperature of <%= r.temperature %>° Fahrenheit </li>
-    <br/>
-<% }); %>
+<div class="forecastStuff">
+<ul>
+    <li> <%= r.time %> </li>
+    <li> Temperature: <%= r.temperature %>° Fahrenheit </li>
+    <li> Chance of Rain: <%= r.precipProbability %>% </li>
 </ul>
+</div>
+<% }); %>
 </div>
 <% include ./footer.ejs %>
