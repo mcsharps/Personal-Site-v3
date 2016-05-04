@@ -1,32 +1,25 @@
-    var express = require('express');
-    var router = express.Router();
-    var Twitter = require('twitter-node-client').Twitter;
-    var twitter = new Twitter();
-    var bunyan = require('bunyan');
-    var log = bunyan.createLogger({
-        name: 'twitterAndStrava',
-        streams: [{
-            level: 'info',
-            // stream: process.stdout,
-            path: './myAppInfo.log' // log INFO and above to stdout
-        }, {
-            level: 'error',
-            path: './myAppErrors.log' // log ERROR and above to a file
-        }]
-    });
-    import React from 'react';
-    import {
-        renderToString
-    } from 'react-dom/server';
-    import {
-        match,
-        RouterContext
-    } from 'react-router';
-    import {
-        routes
-    } from '../routes';
-
-    router.get('/twitter', (request, response) => {
+var Twitter = require('twitter-node-client').Twitter;
+var twitter = new Twitter();
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({
+  name: 'twitterAndStrava',
+  streams: [
+  {
+      level: 'info',
+      // stream: process.stdout,
+      path: './myAppInfo.log'            // log INFO and above to stdout
+  },
+  {
+      level: 'error',
+      path: './myAppErrors.log'  // log ERROR and above to a file
+  }
+  ]
+});
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+import { routes } from '../routes';
+exports.getTwitterResults = (request, response) => {
                 match({
                         routes,
                         location: request.url
@@ -75,5 +68,4 @@
                             }
                         });
                     // twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
-                });
-module.exports = router;
+                }

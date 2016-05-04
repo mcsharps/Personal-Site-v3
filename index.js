@@ -7,6 +7,8 @@ var bunyan = require('bunyan');
 var strava = require('strava-v3');
 var Forecast = require('forecast.io');
 var moment = require('moment-timezone');
+var Twitter = require('twitter-node-client').Twitter;
+var twitter = new Twitter();
 var babel = require("babel-register")({
   // This will override `node_modules` ignoring - you can alternatively pass
   // an array of strings to be explicitly matched or a regex / glob
@@ -33,12 +35,13 @@ var options = {
   timeout: 1000
 };
 var forecast = new Forecast();
+var resume = require('./routes/resume');
+var twitterRoute = require('./routes/twitter');
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { routes } from './routes';
-
-app.use(require('./routes/twitter'));
 
 app.set('port', (5000 || process.env.PORT));
 
@@ -50,34 +53,10 @@ app.set('view engine', 'ejs');
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+
+app.get('/resume', resume.getResume);
+app.get('/twitter', twitterRoute.getTwitterResults)
 app.get('/', function(request, response) {
-    // routes is our object of React routes defined above
-    match({ routes, location: request.url }, (err, redirectLocation, props) => {
-     if (err) {
-         // something went badly wrong, so 500 with a message
-         response.status(500).send(err.message);
-     } else if (redirectLocation) {
-         // we matched a ReactRouter redirect, so redirect from the server
-         response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-     } else if (props) {
-         // if we got props, that means we found a valid component to render
-         // for the given route
-
-         const markup = renderToString(<RouterContext {...props} />); //
-
-         // render `index.ejs`, but pass in the markup we want it to display
-         response.render('index', { markup })
-
-     } else {
-         // no route match, so 404. In a real app you might render a custom
-         // 404 view here
-         response.sendStatus(404);
-     }
- });
-
-
-     });
-    app.get('/resume', function(request, response) {
     // routes is our object of React routes defined above
     match({ routes, location: request.url }, (err, redirectLocation, props) => {
      if (err) {
@@ -149,7 +128,7 @@ app.get('/', function(request, response) {
                         log.info(currentValue.time);
                     })
                         // log.info(data.hourly.data);
-                        const markup = renderToString(<RouterContext {...props} />); //
+                        const markup = renderToString(<RouterContext {...props} />); // /)
                         response.render('biking', {results: payload, forecast: forecast, markup: markup});
                 }
             });
@@ -161,4 +140,3 @@ app.get('/', function(request, response) {
         }
     })
 });
-module.exports = app;
