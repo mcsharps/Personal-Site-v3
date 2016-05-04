@@ -2,7 +2,6 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
 var app = express();
-var Twitter = require('twitter-node-client').Twitter;
 var https = require('https');
 var bunyan = require('bunyan');
 var strava = require('strava-v3');
@@ -34,32 +33,16 @@ var options = {
   timeout: 1000
 };
 var forecast = new Forecast();
-
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-
 import { routes } from './routes';
 
-var error = function (err, response, body) {
-    // console.log('ERROR [%s]', err);
-    return err;
-};
-var success = function (data) {
-    // console.log(JSON.stringify(data, null, 2));
-    console.log(typeof data);
-    console.log(data.statuses);
-};
-
-var twitter = new Twitter();
-
-
-
+app.use(require('./routes/twitter'));
 
 app.set('port', (5000 || process.env.PORT));
 
 app.use(express.static(__dirname + '/public'));
-
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -133,40 +116,6 @@ app.get('/', function(request, response) {
     });
   });
 
-    app.get('/twitter', (request, response) => {
-        match({ routes, location: request.url }, (err, redirectLocation, props) => {
-          if (err) {
-        // something went badly wrong, so 500 with a message
-        response.status(500).send(err.message);
-    } else if (redirectLocation) {
-        // we matched a ReactRouter redirect, so redirect from the server
-        response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (props) {
-        // if we got props, that means we found a valid component to render
-        // for the given route
-        twitter.getSearch({'q':'#feelthebern', 'geocode': '33.520796,-86.802709,1000mi','count': 10, 'result_type': 'both'},
-            function(error){
-                var errObj = JSON.parse(error);
-            },  function(success){
-                var successObj = JSON.parse(success);
-                log.info(successObj.statuses[0].text);
-                var statusesAsTexts = successObj.statuses.map(function(currentStatus, index){
-                    log.info(currentStatus.text);
-                        // var Status[index] = currentStatus.text;
-                    });
-                const markup = renderToString(<RouterContext {...props} />); //
-                    response.render('twitter', {results: successObj.statuses, markup: markup});
-                    // need to map all statuses array text to values and log'em out for now; render when I get the map working
-                });
-
-            } else {
-        // no route match, so 404. In a real app you might render a custom
-        // 404 view here
-        response.sendStatus(404);
-    }
-});
-	// twitter.getUserTimeline({ screen_name: 'mcsharps', count: '10'}, error, success);
-});
         app.get('/biking', (request, response) => {
             match({ routes, location: request.url }, (err, redirectLocation, props) => {
               if (err) {
@@ -209,6 +158,7 @@ app.get('/', function(request, response) {
         // no route match, so 404. In a real app you might render a custom
         // 404 view here
         response.sendStatus(404);
-    }
-})
-    });
+        }
+    })
+});
+module.exports = app;
