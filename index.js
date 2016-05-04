@@ -37,7 +37,7 @@ var options = {
 var forecast = new Forecast();
 var resume = require('./routes/resume');
 var twitterRoute = require('./routes/twitter');
-
+var indexRoute = require('./routes/indexRoute');
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -55,45 +55,19 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/resume', resume.getResume);
-app.get('/twitter', twitterRoute.getTwitterResults)
-app.get('/', function(request, response) {
-    // routes is our object of React routes defined above
-    match({ routes, location: request.url }, (err, redirectLocation, props) => {
-     if (err) {
-         // something went badly wrong, so 500 with a message
-         response.status(500).send(err.message);
-     } else if (redirectLocation) {
-         // we matched a ReactRouter redirect, so redirect from the server
-         response.redirect(302, redirectLocation.pathname + redirectLocation.search);
-     } else if (props) {
-         // if we got props, that means we found a valid component to render
-         // for the given route
-
-         const markup = renderToString(<RouterContext {...props} />); //
-
-         // render `index.ejs`, but pass in the markup we want it to display
-         response.render('index', { markup })
-
-     } else {
-         // no route match, so 404. In a real app you might render a custom
-         // 404 view here
-         response.sendStatus(404);
-     }
+app.get('/twitter', twitterRoute.getTwitterResults);
+app.get('/', indexRoute.indexResults);
+app.get('/db', function (request, response) {
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM test_table', function(err, result) {
+      done();
+      if (err)
+         { console.error(err); response.send("Error " + err); }
+     else
+         { response.render('db', {results: result.rows} ); }
  });
-
-
-     });
-    app.get('/db', function (request, response) {
-      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        client.query('SELECT * FROM test_table', function(err, result) {
-          done();
-          if (err)
-             { console.error(err); response.send("Error " + err); }
-         else
-             { response.render('db', {results: result.rows} ); }
-     });
-    });
-  });
+});
+});
 
         app.get('/biking', (request, response) => {
             match({ routes, location: request.url }, (err, redirectLocation, props) => {
