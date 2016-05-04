@@ -38,6 +38,8 @@ var forecast = new Forecast();
 var resume = require('./routes/resume');
 var twitterRoute = require('./routes/twitter');
 var indexRoute = require('./routes/indexRoute');
+// var dbRoute = require('./routes/dbRoute');
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
@@ -57,17 +59,7 @@ app.listen(app.get('port'), function() {
 app.get('/resume', resume.getResume);
 app.get('/twitter', twitterRoute.getTwitterResults);
 app.get('/', indexRoute.indexResults);
-app.get('/db', function (request, response) {
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM test_table', function(err, result) {
-      done();
-      if (err)
-         { console.error(err); response.send("Error " + err); }
-     else
-         { response.render('db', {results: result.rows} ); }
- });
-});
-});
+// app.get('/db', dbRoute.dbResults);
 
         app.get('/biking', (request, response) => {
             match({ routes, location: request.url }, (err, redirectLocation, props) => {
