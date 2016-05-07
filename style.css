@@ -49,13 +49,15 @@ ul > li > ul > li {
     background-position: center center;
     margin: 0 auto;
 }
-
+.forecast-container{
+    /*lost-utility: edit;*/
+    lost-utility: clearfix;
+}
+    .forecastStuff{
+        lost-column: 1/3;
+    }
 /* Large Desktop */
 @media (min-width: 1170px) {
-    .forecastStuff{
-        lost-column: 3/12;
-        lost-offset: -1/16;
-    }
     .container{
         background-color: white;
         padding: 20px;

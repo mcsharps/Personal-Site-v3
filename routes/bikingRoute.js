@@ -4,31 +4,22 @@ var forecast = new Forecast();
 var moment = require('moment-timezone');
 var bunyan = require('bunyan');
 var log = bunyan.createLogger({
-  name: 'twitterAndStrava',
-  streams: [
-  {
-      level: 'info',
-      // stream: process.stdout,
-      path: './myAppInfo.log'            // log INFO and above to stdout
-  },
-  {
-      level: 'error',
-      path: './myAppErrors.log'  // log ERROR and above to a file
-  }
-  ]
+    name: 'twitterAndStrava',
+    streams: [{
+        level: 'info',
+        // stream: process.stdout,
+        path: './myAppInfo.log' // log INFO and above to stdout
+    }, {
+        level: 'error',
+        path: './myAppErrors.log' // log ERROR and above to a file
+    }]
 });
 
 import React from 'react';
-import {
-    renderToString
-} from 'react-dom/server';
-import {
-    match,
-    RouterContext
-} from 'react-router';
-import {
-    routes
-} from '../routes';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+import { routes } from '../routes';
+
 exports.getBikingResults = (request, response) => {
             match({ routes, location: request.url }, (err, redirectLocation, props) => {
               if (err) {
