@@ -21,6 +21,40 @@ import { match, RouterContext } from 'react-router';
 import { routes } from '../routes';
 
 exports.getBikingResults = (request, response) => {
+
+           var getIcon = (currentValue) => {
+                if(currentValue.icon === 'clear-day') {
+                currentValue.icon = 'wi-day-sunny';
+                }
+                else if(currentValue.icon === 'clear-night') {
+                    currentValue.icon = 'wi-night-clear';
+                }
+                else if(currentValue.icon === 'rain') {
+                    currentValue.icon = 'wi-rain'
+                }
+                else if(currentValue.icon === 'snow') {
+                    currentValue.icon = 'wi-snow'
+                }
+                else if(currentValue.icon === 'sleet') {
+                    currentValue.icon = 'wi-sleet';
+                }
+                else if(currentValue.icon === 'wind') {
+                    currentValue.icon = 'wi-wind';
+                }
+                else if(currentValue.icon === 'fog') {
+                    currentValue.icon = 'wi-fog';
+                }
+                else if(currentValue.icon === 'cloudy') {
+                    currentValue.icon = 'wi-cloudy'
+                }
+                else if(currentValue.icon === 'partly-cloudy-day') {
+                    currentValue.icon = 'wi-day-cloudy'
+                }
+                else if(currentValue.icon === 'partly-cloudy-night') {
+                    currentValue.icon =  'wi-night-alt-cloudy'
+                }
+            }
+
             match({ routes, location: request.url }, (err, redirectLocation, props) => {
               if (err) {
         // something went badly wrong, so 500 with a message
@@ -50,6 +84,7 @@ exports.getBikingResults = (request, response) => {
                     forecast.forEach(function(currentValue){
                         currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do YYYY, h:mm:ss a');
                         currentValue.precipProbability = Math.trunc(currentValue.precipProbability * 100);
+                        getIcon(currentValue);
                         log.info(currentValue.time);
                     })
                         // log.info(data.hourly.data);

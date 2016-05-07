@@ -57,7 +57,7 @@ gulp.task('postcss', function(){
     cssvariables,
     lost
     ];
-    return gulp.src('*.css')
+    return gulp.src('styles/*.css')
            .pipe(postcss(processers))
            .pipe( gulp.dest('public/') );
 });
@@ -66,4 +66,8 @@ gulp.task('copyImages', function(){
     .pipe(gulp.dest('public/images'));
 
 });
-gulp.task('default', ['webpack', 'postcss', 'copyImages']);
+gulp.task('copyStyles', function(){
+    gulp.src('./font/**')
+    .pipe(gulp.dest('public/font'))
+})
+gulp.task('default', ['webpack', 'postcss', 'copyImages', 'copyStyles']);

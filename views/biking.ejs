@@ -26,6 +26,7 @@
 <% forecast.forEach(function(r) { %>
 <div class="forecastStuff">
 <ul>
+    <i class="wi <%= r.icon %> weather-icon-size"></i>
     <li> <%= r.time %> </li>
     <li> Temperature: <%= r.temperature %>° Fahrenheit </li>
     <li> Chance of Rain: <%= r.precipProbability %>% </li>
