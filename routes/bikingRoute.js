@@ -82,7 +82,7 @@ exports.getBikingResults = (request, response) => {
                 else if(data) {
                     var forecast = data.hourly.data;
                     forecast.forEach(function(currentValue){
-                        currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do YYYY, h:mm:ss a');
+                        currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do, h a');
                         currentValue.precipProbability = Math.trunc(currentValue.precipProbability * 100);
                         getIcon(currentValue);
                         log.info(currentValue.time);
