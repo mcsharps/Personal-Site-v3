@@ -1,1 +1,1 @@
-web: ./public build.js
+web: ./public/build.js
