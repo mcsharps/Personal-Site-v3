@@ -32,7 +32,8 @@ var webpackBabelConfig = {
     loaders: [
       {
         test: /.js$/,
-        loader: 'babel'
+        loader: 'babel',
+        exclude: /node_modules/
       }
     ]
   }
