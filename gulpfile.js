@@ -23,8 +23,7 @@ var log = bunyan.createLogger({
   ]
 });
 var webpackBabelConfig = {
-  // entry: path.join(process.cwd(), 'client-render.js'),
-  entry: path.join(__dirname, 'client-render.js'),
+  entry: path.join(process.cwd(), 'client-render.js'),
   output: {
     path: './public/',
     filename: 'build.js'
