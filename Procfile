@@ -1,1 +1,1 @@
-web: ./public/build.js
+web: ./node_modules/.bin/babel-node index.js
