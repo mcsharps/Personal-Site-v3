@@ -28,7 +28,6 @@
                  const markup = renderToString( < RouterContext {...props
                      }
                      />);
-                     // /)
 
                      // render `index.ejs`, but pass in the markup we want it to display
                      response.render('index', {
