@@ -32,7 +32,7 @@
     "react-dom": "^0.14.8",
     "react-router": "^2.0.1",
     "strava-v3": "^1.10.0",
-    "twitter-node-client": "0.0.6"
+    "twitter-node-client": "git://github.com/mcsharps/TwitterJSClient#master"
   },
   "engines": {
     "node": "0.12.7"
