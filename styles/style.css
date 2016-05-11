@@ -48,6 +48,9 @@ ul > li > ul > li {
     color: black;
     text-decoration: none;
 }
+.headerLink:hover{
+    border: none;
+}
 .myFace{
     background-image: url("./images/me1Crop.jpg");
     width: 235px;
