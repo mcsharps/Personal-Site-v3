@@ -1,1 +1,1 @@
-web: node index.js thin start -p $PORT
+web: node /public/build.js thin start -p $PORT
