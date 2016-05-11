@@ -18,7 +18,7 @@ var indexRoute = require('./routes/indexRoute');
 var bikingRoute = require('./routes/bikingRoute');
 /* ------ */
 
-app.set('port', (process.env.PORT || 403));
+app.set('port', (403 || process.env.PORT));
 app.set('views', __dirname + '/views'); //ejs templates
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
