@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/babel-node index.js thin start -p $PORT
+web: ./public build.js thin start -p $PORT
