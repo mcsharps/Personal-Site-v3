@@ -1,23 +1,251 @@
 body {
-    background: white;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    // width: 4000px;
-    width: calc(99.99% * 1/12 - (30px - 30px * 1/12));
+    background: #EFEFEF;
+    font-family: 'Cantarell', serif;
+    /*margin: 0;*/
 }
-body:nth-child(1n) {
+a{
+    color: #559EFF;
+    text-decoration: none;
+    padding: 5px;
+}
+.menu-list {
+    margin: 10px;
+}
+ul > li {
+    margin: 5px;
+}
+a:hover{
+    color: #167AFF;
+    border: 2px solid black;
+}
+a:active{
+    color: #0058CC;
+    text-decoration: underline;
+}
+h1{
+    font-family: 'Crimson Text', serif;
+}
+h2{
+    font-family: 'Crimson Text', serif;
+}
+h3{
+    font-family: 'Cantarell', serif;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+ul > li > ul > li {
+    list-style: initial;
+    margin-left: 20px;
+}
+.headerLink{
+    color: black;
+    text-decoration: none;
+}
+.headerLink:hover{
+    border: none;
+}
+.myFace{
+    background-image: url("./images/me1Crop.jpg");
+    width: 235px;
+    height:235px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    margin: 0 auto;
+}
+.forecast-container{
+    /*lost-utility: edit;*/
+    *zoom: 1;
+}
+.forecast-container:before {
+    /*lost-utility: edit;*/
+    content: '';
+    display: table;
+}
+.forecast-container:after {
+    /*lost-utility: edit;*/
+    content: '';
+    display: table;
+    clear: both;
+}
+.forecastStuff{
+    width: calc(99.99% * 1/3 - (30px - 30px * 1/3));
+}
+.forecastStuff:nth-child(1n) {
     float: left;
     margin-right: 30px;
     clear: none;
 }
-body:last-child {
+.forecastStuff:last-child {
     margin-right: 0;
 }
-body:nth-child(12n) {
+.forecastStuff:nth-child(3n) {
     margin-right: 0;
     float: right;
 }
-body:nth-child(12n + 1) {
+.forecastStuff:nth-child(3n + 1) {
     clear: left;
+}
+.weather-icon-size{
+    font-size: 3rem;
+}
+#triangle-topright {
+    width: 0;
+    height: 0;
+    float:right;
+    border-top: 70px solid rgba(86, 159, 255, 0.65);
+    border-left: 70px solid transparent;
+
+}
+#triangle-bottomleft {
+    width: 0;
+    height: 0;
+    border-top: 40px solid transparent;
+    border-left: 40px solid rgba(0, 0, 0, 0.65);
+
+}
+/* Large Desktop */
+@media (min-width: 1170px) {
+    .container{
+        background-color: white;
+        padding: 20px;
+        *zoom: 1;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container:before {
+        content: '';
+        display: table;
+    }
+    .container:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+}
+
+
+/* Medium Desktop */
+@media (max-width: 1169px) and (min-width: 970px) {
+
+    .container{
+        background-color: white;
+        padding: 20px;
+        *zoom: 1;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .container:before {
+        content: '';
+        display: table;
+    }
+
+    .container:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+}
+
+/* Tablets */
+@media (max-width: 969px) and (min-width: 768px) {
+
+    .container{
+        background-color: white;
+        padding: 20px;
+        *zoom: 1;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .container:before {
+        content: '';
+        display: table;
+    }
+
+    .container:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    .forecastStuff{
+        width: calc(99.99% * 1/2 - (30px - 30px * 1/2));
+    }
+
+    .forecastStuff:nth-child(1n) {
+        float: left;
+        margin-right: 30px;
+        clear: none;
+    }
+
+    .forecastStuff:last-child {
+        margin-right: 0;
+    }
+
+    .forecastStuff:nth-child(2n) {
+        margin-right: 0;
+        float: right;
+    }
+
+    .forecastStuff:nth-child(2n + 1) {
+        clear: left;
+    }
+
+}
+
+/* Small Devices */
+@media (max-width: 768px) {
+
+    .container{
+        background-color: white;
+        padding: 20px;
+        *zoom: 1;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .container:before {
+        content: '';
+        display: table;
+    }
+
+    .container:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+
+    .forecastStuff{
+        width: calc(99.99% * 1/1 - (30px - 30px * 1/1));
+    }
+
+    .forecastStuff:nth-child(1n) {
+        float: left;
+        margin-right: 30px;
+        clear: none;
+    }
+
+    .forecastStuff:last-child {
+        margin-right: 0;
+    }
+
+    .forecastStuff:nth-child(1n) {
+        margin-right: 0;
+        float: right;
+    }
+
+    .forecastStuff:nth-child(1n + 1) {
+        clear: left;
+    }
+
 }
