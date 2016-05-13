@@ -25113,7 +25113,7 @@
 	        _react2.default.createElement(
 	          'h2',
 	          null,
-	          'Twitter Results for #feelthebern within 1000 miles of Birmingham'
+	          'Twitter Results for #programming within 100 miles of Birmingham'
 	        ),
 	        _react2.default.createElement('div', null)
 	      );

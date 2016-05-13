@@ -38,8 +38,8 @@ exports.getTwitterResults = (request, response) => {
                 // if we got props, that means we found a valid component to render
                 // for the given route
                 twitter.getSearch({
-                        'q': '#feelthebern',
-                        'geocode': '33.520796,-86.802709,1000mi',
+                        'q': '#programming',
+                        'geocode': '33.520796,-86.802709,100mi',
                         'count': 10,
                         'result_type': 'both'
                     },
@@ -48,10 +48,9 @@ exports.getTwitterResults = (request, response) => {
                     },
                     function(success) {
                         var successObj = JSON.parse(success);
-                        log.info(successObj.statuses[0].text);
                         var statusesAsTexts = successObj.statuses.map(function(currentStatus, index) {
                             log.info(currentStatus.text);
-                            // var Status[index] = currentStatus.text;
+                            log.info(currentStatus.screen_name);
                         });
                         const markup = renderToString( < RouterContext {...props
                             }
