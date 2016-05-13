@@ -1,7 +1,7 @@
 :root{
-    --check-var: 4000px;
     --font-family-headers: 'Crimson Text', serif;
     --font-family-body: 'Cantarell', serif;
+    --list-bullets: initial;
 }
 body {
     background: #EFEFEF;
@@ -84,6 +84,12 @@ ul > li > ul > li {
     border-top: 40px solid transparent;
     border-left: 40px solid rgba(0, 0, 0, 0.65);
 
+}
+.twitter{
+    padding-left: 17px;
+}
+.twitter__list{
+    list-style: var(--list-bullets);
 }
 /* Large Desktop */
 @media (min-width: 1170px) {

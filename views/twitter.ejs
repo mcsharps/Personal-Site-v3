@@ -1,7 +1,7 @@
 <% include ./header.ejs %>
 <div id="app"><%- markup %></div>
-<div>
-<ul>
+<div class="twitter">
+<ul class="twitter__list">
     <% results.forEach(function(r) { %>
         <li><%= r.text %></li>
     <% }); %>
