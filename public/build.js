@@ -24843,7 +24843,7 @@
 	            { className: 'menu-list' },
 	            _react2.default.createElement(
 	              'a',
-	              { href: '/' },
+	              { className: 'menu--links', href: '/' },
 	              'Home'
 	            )
 	          ),
@@ -24852,7 +24852,7 @@
 	            { className: 'menu-list' },
 	            _react2.default.createElement(
 	              'a',
-	              { href: '/resume' },
+	              { className: 'menu--links', href: '/resume' },
 	              'Resumé'
 	            )
 	          ),
@@ -24861,7 +24861,7 @@
 	            { className: 'menu-list' },
 	            _react2.default.createElement(
 	              'a',
-	              { href: '/twitter' },
+	              { className: 'menu--links', href: '/twitter' },
 	              'Twitter'
 	            )
 	          ),
@@ -24870,7 +24870,7 @@
 	            { className: 'menu-list' },
 	            _react2.default.createElement(
 	              'a',
-	              { href: '/biking' },
+	              { className: 'menu--links', href: '/biking' },
 	              'Biking'
 	            )
 	          )
@@ -24932,7 +24932,19 @@
 	        _react2.default.createElement(
 	          'p',
 	          null,
-	          'I am a Front End Developer with a passion for biking, coffee, making music, and programming.'
+	          'I am a Front End Developer with a passion for biking, coffee, making music, and programming. Take a look at my ',
+	          _react2.default.createElement(
+	            'a',
+	            { href: '/twitter' },
+	            'Twitter'
+	          ),
+	          ' links and ',
+	          _react2.default.createElement(
+	            'a',
+	            { href: '/biking' },
+	            'Biking'
+	          ),
+	          ' links to see some examples of API calls and formatting from the twitter, strava, and forecast.io APIs.'
 	        )
 	      );
 	    }
