@@ -25027,7 +25027,7 @@
 	              _react2.default.createElement(
 	                "li",
 	                null,
-	                "Created Analytics Service for Web Sales Portal utilizing Publish Subscribe software pattern. "
+	                "Created analytics service for web sales portal utilizing the publish-subscribe software pattern. "
 	              ),
 	              _react2.default.createElement(
 	                "li",
