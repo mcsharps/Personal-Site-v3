@@ -25027,7 +25027,7 @@
 	              _react2.default.createElement(
 	                "li",
 	                null,
-	                "Utilized open source editor to allow developers to manipulate api responses creating an interactive space for api calls and responses, including allowances for path and query parameters."
+	                "Created Analytics Service for Web Sales Portal utilizing Publish Subscribe software pattern. "
 	              ),
 	              _react2.default.createElement(
 	                "li",
