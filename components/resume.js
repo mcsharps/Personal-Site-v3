@@ -10,7 +10,7 @@ export default class AboutComponent extends React.Component {
         <li>Front End Web Developer at ISCS February 2015 - Present
             <ul>
             <li>Created sandbox for developer portal enabling developers to make standard http (GET, POST, PUT, DELETE) calls to the api.</li>
-            <li>Utilized open source editor to allow developers to manipulate api responses creating an interactive space for api calls and responses, including allowances for path and query parameters.</li>
+            <li>Created Analytics Service for Web Sales Portal utilizing Publish Subscribe software pattern. </li>
             <li>Refactored all controllers in web consumer application to IIFE style reducing global variable scope, and removing chances for variable collisions.</li>
             <li>Created and maintain a proof of concept application utilizing node, angular, third party api interaction, and oauth</li>
             <li>Refactored views folder to eliminate inconsistent naming patterns and follow the routing convention used to dictate routing throughout the rest of the app.</li>
