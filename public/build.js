@@ -25167,7 +25167,7 @@
 	        _react2.default.createElement(
 	          'h2',
 	          null,
-	          'My Current Strava Statistics:'
+	          'My Current Strava Statistics (last 4 weeks):'
 	        ),
 	        _react2.default.createElement('div', null)
 	      );
