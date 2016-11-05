@@ -4,6 +4,7 @@ var app = express();
 var https = require('https');
 var DarkSky = require('forecast.io');
 var fs = require('fs');
+try {
 var configPath = 'data/forecast_config';
 var config = fs.readFileSync(configPath, {encoding: 'utf-8'});
 config = JSON.parse(config);
@@ -12,6 +13,15 @@ var options = {
   timeout: config.timeout
 };
 var forecast = new DarkSky(options);
+}
+catch (err) {
+var options = {
+  APIKey: process.env.forecastAPIKey,
+  timeout: 1000
+};
+var forecast = new DarkSky(options);
+
+}
 var babel = require("babel-register")({
   // This will override `node_modules` ignoring - you can alternatively pass
   // an array of strings to be explicitly matched or a regex / glob
