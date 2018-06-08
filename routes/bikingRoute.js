@@ -86,21 +86,21 @@ exports.getBikingResults = (request, response) => {
 
         strava.athletes.stats({id:'7224264'},function(err, payload){
           if(err){
-             log.info(err);
+             log.error(err);
          }
          payload.recent_ride_totals.distance = Math.trunc(payload.recent_ride_totals.distance / 1609.344);
          payload.recent_ride_totals.elevation_gain = Math.trunc(payload.recent_ride_totals.elevation_gain * 3.2808);
-         var latitude = 33.508385;
-         var longitude = -86.783255;
+         var latitude = 40.005919; //Boulder
+         var longitude = -105.255260;
             forecast.get(latitude, longitude, function (err, res, data) {
                 if (err) {
-                    log.info(err);
+                    log.error(err);
                     var forecast = err;
                 }
                 else if(data) {
                     var forecast = data.hourly.data;
                     forecast.forEach(function(currentValue){
-                        currentValue.time = moment.unix(currentValue.time).tz('America/Chicago').format('MMMM Do, h a');
+                        currentValue.time = moment.unix(currentValue.time).tz('America/Denver').format('MMMM Do, h a');
                         currentValue.precipProbability = Math.trunc(currentValue.precipProbability * 100);
                         getIcon(currentValue);
                         log.info(currentValue.time);
@@ -112,7 +112,7 @@ exports.getBikingResults = (request, response) => {
             });
         });
      } else {
-        // no route match, so 404. In a real app you might render a custom
+        // no route match, so 404. Need to render a custom
         // 404 view here
         response.sendStatus(404);
         }

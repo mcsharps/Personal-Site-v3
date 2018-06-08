@@ -5,15 +5,15 @@
 
 <ul>
 <li>
-	Number of Recent Rides:
+	Number of Rides:
 	<%= results.recent_ride_totals.count %>
 </li>
 <li>
-	Distance of Recent Rides:
+	Total Ride Distance:
 	<%= results.recent_ride_totals.distance %> Miles
 </li>
 <li>
-	Elevation Gain of Recent Rides:
+	Total Elevation Gain:
 	<%= results.recent_ride_totals.elevation_gain %> Feet
 </li>
 
@@ -21,7 +21,7 @@
 
 </div>
 
-<h2> Biking Weather?? -- <a href="https://darksky.net/poweredby/" target="_blank">Powered by Darksky</a> </h2>
+<h2> Biking Weather for Boulder -- <a href="https://darksky.net/poweredby/" target="_blank">Powered by Darksky</a> </h2>
 <div class="forecast-container">
 <% forecast.forEach(function(r) { %>
 <div class="forecastStuff">

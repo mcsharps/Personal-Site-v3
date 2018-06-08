@@ -10,7 +10,7 @@ export default class AppComponent extends React.Component {
         <div className="myFace"></div>
         <ul>
           <li className="menu-list"><a className="menu--links" href='/'>Home</a></li>
-          <li className="menu-list"><a className="menu--links" href='/resume'>Resumé</a></li>
+          <li className="menu-list"><a className="menu--links" href='/resume'>Résumé</a></li>
           <li className="menu-list"><a className="menu--links" href='/twitter'>Twitter</a></li>
           <li className="menu-list"><a className="menu--links" href='/biking'>Biking</a></li>
         </ul>

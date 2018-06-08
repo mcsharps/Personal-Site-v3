@@ -4,10 +4,10 @@ export default class AboutComponent extends React.Component {
   render() {
     return (
       <div>
-        <h3>Check out my Resumé on <a href="https://www.linkedin.com/pub/madison-sharps/25/299/889">linkedin</a></h3>
+        <h3>Check out my Résumé on <a href="https://www.linkedin.com/pub/madison-sharps/25/299/889">linkedin</a></h3>
         <span>Here is a few highlights:</span>
         <ul>
-        <li>Front End Web Developer at ISCS February 2015 - Present
+        <li>Full Stack Developer at Guidewire February 2015 - Present
             <ul>
             <li>Created sandbox for developer portal enabling developers to make standard http (GET, POST, PUT, DELETE) calls to the api.</li>
             <li>Created analytics service for web sales portal utilizing the publish-subscribe software pattern. </li>

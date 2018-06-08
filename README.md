@@ -52,6 +52,9 @@ twitter_config
 }
 
 after those are configured with keys run
+$ gulp
+
+//gulp to digest latest changes
 
 $ heroku local
 ```

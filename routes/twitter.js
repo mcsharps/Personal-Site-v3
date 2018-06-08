@@ -39,11 +39,12 @@ exports.getTwitterResults = (request, response) => {
                 // for the given route
                 twitter.getSearch({
                         'q': '#programming',
-                        'geocode': '33.520796,-86.802709,100mi',
+                        'geocode': '40.005919,-105.255260,100mi',
                         'count': 10,
                         'result_type': 'both'
                     },
                     function(error) {
+                        log.error(error);
                         var errObj = JSON.parse(error);
                     },
                     function(success) {
