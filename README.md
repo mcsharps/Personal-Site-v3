@@ -13,16 +13,16 @@ Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https
 $ git clone git@github.com:mcsharps/Personal-Site-v3.git
 $ cd Personal-Site-v3
 $ npm install
-Add a .env file that looks something like this:
+Add a .env file (twitter client looks at this) that looks something like this:
 
 TIMES=XXX
-twitterConsumerKey=XXXXXX
-twitterConsumerSecret=XXXXX
-twitterAccessToken=XXXX
-twitterAccessTokenSecret=XXXXX
-twitterCallBackUrl=XXX
+consumerKey=XXXXXX
+consumerSecret=XXXXX
+accessToken=XXXX
+accessTokenSecret=XXXXX
+callBackUrl=XXX
 
-Add a data directory with a forecast_config file, strava_config file, and a twitter_config file.
+Add a data directory with a forecast_config file, strava_config file.
 
 Each file should be a json like this:
 forecast_config
@@ -39,16 +39,6 @@ strava_config
     , "client_id"     :"XXXX"
     , "client_secret" :"XXXXX"
     , "redirect_uri"  :"XXXXXXX"
-}
-
-twitter_config
-
-{
-       "consumerKey": "XXXXX",
-       "consumerSecret": "XXXXX",
-       "accessToken": "XXXXXX",
-       "accessTokenSecret": "XXXXXXX",
-       "callBackUrl": "XXXXX"
 }
 
 after those are configured with keys run
